@@ -16,8 +16,12 @@ function App() {
 
   // Request notification permission on mount
   useEffect(() => {
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission();
+    if ("Notification" in window) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          console.log("Notification permission granted.");
+        }
+      });
     }
   }, []);
 
